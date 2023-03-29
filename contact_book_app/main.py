@@ -1,5 +1,7 @@
-import os
+import os, time
+from tabulate import tabulate
 from conexion import *
+from contacto import *
 
 con =conectar()
 crear_tabla(con)
@@ -13,6 +15,45 @@ def iniciar():
     print('\t4. Modificar un contacto')
     print('\t5. Eliminar un contacto')
     print('\t6. Salir de la aplicacion')
-    input('Escoja una opcion: ')
+    opcion = int(input('Escoja una opcion: '))
 
-iniciar()
+    match opcion:
+        case 1:
+            nuevo_contacto()
+        case 2:
+            ver_contactos()
+        case 3:
+            pass
+        case 4:
+            pass
+        case 5:
+            pass
+        case 6:
+            pass
+        case _:
+            os.system('clear')
+            print('Elija una opcion de entre las mostradas por favor\n')
+            time.sleep(3)
+            iniciar()
+
+def nuevo_contacto():
+    nombre = input('Ingrese el nombre: ')
+    apellidos = input('Ingrese el apellido: ')
+    empresa = input('Ingrese la empresa: ')
+    telefono = input('Ingrese el telefono: ')
+    email = input('Ingrese el email: ')
+    direccion = input('Ingrese la direccion: ')
+    respuesta = registrar(nombre, apellidos, empresa, telefono, email, direccion)
+    print(respuesta)
+
+def ver_contactos():
+    datos = mostrar()
+    headers = ['ID','NOMBRE','APELLIDO','EMPRESA','TELEFONO','EMAIL','DIRECCION']
+    tabla = tabulate(datos,headers,tablefmt='fancy_grid')
+    print(tabla)
+
+try:
+    iniciar()
+except KeyboardInterrupt:
+    os.system('clear')
+    print('Programa terminado por el usuario')
