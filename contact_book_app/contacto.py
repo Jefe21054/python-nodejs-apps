@@ -26,4 +26,17 @@ def mostrar():
         con.close()
         return datos
     except sqlite3.Error as err:
-        return str('Ha ocurrido un error: ',err)
+        return 'Ha ocurrido un error: ' + str(err)
+
+def buscar(nombre):
+    datos = []
+    try:
+        con = conectar()
+        cursor = con.cursor()
+        sentencia_sql = ''' SELECT * FROM contacto WHERE nombre=? '''
+        cursor.execute(sentencia_sql,(nombre,))
+        datos = cursor.fetchall()
+        con.close()
+        return datos
+    except sqlite3.Error as err:
+        return 'Ha ocurrido un error: ' + str(err)

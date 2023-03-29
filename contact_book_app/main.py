@@ -15,20 +15,20 @@ def iniciar():
     print('\t4. Modificar un contacto')
     print('\t5. Eliminar un contacto')
     print('\t6. Salir de la aplicacion')
-    opcion = int(input('Escoja una opcion: '))
+    opcion = input('Escoja una opcion: ')
 
     match opcion:
-        case 1:
+        case '1':
             nuevo_contacto()
-        case 2:
+        case '2':
             ver_contactos()
-        case 3:
+        case '3':
+            buscar_contacto()
+        case '4':
             pass
-        case 4:
+        case '5':
             pass
-        case 5:
-            pass
-        case 6:
+        case '6':
             pass
         case _:
             os.system('clear')
@@ -51,6 +51,16 @@ def ver_contactos():
     headers = ['ID','NOMBRE','APELLIDO','EMPRESA','TELEFONO','EMAIL','DIRECCION']
     tabla = tabulate(datos,headers,tablefmt='fancy_grid')
     print(tabla)
+
+def buscar_contacto():
+    name = input('Ingrese el nombre del contacto a buscar: ')
+    datos = buscar(str(name))
+    headers = ['ID','NOMBRE','APELLIDO','EMPRESA','TELEFONO','EMAIL','DIRECCION']
+    tabla = tabulate(datos,headers,tablefmt='fancy_grid')
+    if datos == []:
+        print('El contacto no ha sido registrado dentro de su agenda')
+    else:
+        print(tabla)
 
 try:
     iniciar()
