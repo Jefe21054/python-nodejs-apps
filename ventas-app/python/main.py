@@ -11,7 +11,8 @@ def iniciar():
         print('\t3. Buscar un producto')
         print('\t4. Modificar un producto')
         print('\t5. Eliminar un producto')
-        print('\t6. Salir de la aplicacion')
+        print('\t6. Nueva venta')
+        print('\t7. Salir de la aplicacion')
         opcion = input('Escoja una opcion: ')
 
         match opcion:
@@ -26,6 +27,8 @@ def iniciar():
             case '5':
                 eliminar_producto()
             case '6':
+                nueva_venta()
+            case '7':
                 break
             case _:
                 os.system('clear')
@@ -88,6 +91,36 @@ def eliminar_producto():
     id = input('Ingrese el id del producto a eliminar: ')
     respuesta = requests.post(url='http://localhost:3000/productos/eliminar/'+id)
     print(respuesta.text)
+
+def nueva_venta():
+    cliente = input('Ingrese el nombre del cliente: ')
+    total = 0
+    productos = []
+    print('Seleccione los productos. Presione 0 para salir.')
+    while True:
+        id = input('Ingrese el id del producto: ')
+        if (id == '0'):
+            break
+        else:
+            producto = requests.get(url='http://localhost:3000/productos/buscar/'+id)
+            if len(producto.json()):
+                nombre = producto.json()[0]['nombre']
+                precio = producto.json()[0]['precio']
+                cantidad = input('Ingrese la cantidad: ')
+                total_por_producto = int(cantidad) * float(precio)
+                total += total_por_producto
+                productos.append([id, nombre, precio, cantidad, total_por_producto])
+                mostrar_venta(cliente, productos, total)
+            else:
+                print('Producto no encontrado')
+
+def mostrar_venta(cliente, productos, total):
+    print('\n\t\tComprobante de venta')
+    print('\nCliente: '+cliente)
+    headers = ['ID', 'NOMBRE', 'PRECIO', 'CANTIDAD', 'TOTAL']
+    tabla = tabulate(productos, headers, tablefmt='simple')
+    print(tabla)
+    print('\t\t\tTotal a pagar: '+ str(total))
 
 try:
     iniciar()
