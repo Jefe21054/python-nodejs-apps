@@ -22,11 +22,9 @@ def iniciar():
             case '3':
                 buscar_movimiento()
             case '4':
-                pass
-                #modificar_movimiento()
+                modificar_movimiento()
             case '5':
-                pass
-                #eliminar_movimiento()
+                eliminar_movimiento()
             case '6':
                 break
             case _:
@@ -74,7 +72,7 @@ def buscar_movimiento():
 
 def modificar_movimiento():
     id = input('Ingrese el id del movimiento a modificar: ')
-    campo = input('Ingrese el campo a modificar:\n1. Tipo\n2. Cantidad\n3. Fecha')
+    campo = input('Ingrese el campo a modificar:\n1. Tipo\n2. Cantidad\n3. Fecha\n')
     nuevo_valor = ''
     if(campo == '1'):
         campo = 'tipo'
@@ -92,7 +90,7 @@ def modificar_movimiento():
     print(respuesta.text)
 
 def eliminar_movimiento():
-    id = input('Ingrese el id del movimiento a elimina: ')
+    id = input('Ingrese el id del movimiento a eliminar: ')
     respuesta = requests.post(url='http://localhost:3000/movimientos/eliminar/'+id)
     print(respuesta.text)
 
