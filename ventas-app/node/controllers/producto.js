@@ -27,7 +27,7 @@ const registrar = (req, res)=>{
     const nombre = req.body.nombre
     const descripcion = req.body.descripcion
     const precio = req.body.precio
-    const sql = `insert into producto(nombre, descripcion, precio) values '${nombre}', '${descripcion}', ${precio}`
+    const sql = `insert into producto(nombre, descripcion, precio) values ('${nombre}', '${descripcion}', ${precio})`
     pool.query(sql, (err)=>{
         if (err){
             res.send('Ha ocurrido un error: '+err)
