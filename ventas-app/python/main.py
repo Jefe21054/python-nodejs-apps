@@ -71,10 +71,23 @@ def buscar_producto():
     print(tabla)
 
 def modificar_producto():
-    pass
+    id = input('Ingrese el id del producto a modificar: ')
+    campo = input('Seleccione el campo a modificar:\n1. Nombre\n2. Descripcion\n3. Precio\n')
+    if ((campo == '1') or (campo == '2') or (campo == '3')):
+        nuevo_valor = input('Ingrese el nuevo valor: ')
+        datos = {
+            'campo':campo,
+            'nuevo_valor':nuevo_valor,
+        }
+        respuesta = requests.post(url='http://localhost:3000/productos/modificar/'+id,data=datos)
+        print(respuesta.text)
+    else:
+        print('No existe el campo seleccionado')
 
 def eliminar_producto():
-    pass
+    id = input('Ingrese el id del producto a eliminar: ')
+    respuesta = requests.post(url='http://localhost:3000/productos/eliminar/'+id)
+    print(respuesta.text)
 
 try:
     iniciar()
