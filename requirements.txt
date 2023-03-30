@@ -1,2 +1,3 @@
 tabulate
 mysql-connector-python
+requests

@@ -1,10 +1,10 @@
-const conexion = require('./conexion')
+const conexion = require('../conexion')
 
 const todos = (req, res)=>{
     const sql = 'select * from movimiento'
     conexion.query(sql, (err, result)=>{
         if (err) {
-            res.send('Ha ocurrido un error: '+err)
+            res.send('Ha ocurrido un error '+err)
         }else{
             res.send(result)
         }
@@ -14,11 +14,13 @@ const todos = (req, res)=>{
 const buscar = (req, res)=>{
     const id = req.params.id
     const sql = 'select * from movimiento where id=${id}'
-    if (err) {
-        res.send('Ha ocurrido un error: '+err)
-    }else{
-        res.send(result)
-    }
+    conexion.query(sql, (err, result)=>{
+        if (err) {
+            res.send('Ha ocurrido un error: '+err)
+        }else{
+            res.send(result)
+        }
+    })
 }
 
 const registrar = (req, res)=>{
@@ -26,38 +28,38 @@ const registrar = (req, res)=>{
     conexion.query(sql, req.body, (err)=>{
         if (err) {
             res.send('Ha ocurrido un error: '+err)
-        }else {
+        }else{
             res.send('Registro correcto')
         }
     })
 }
 
-const modificar = ()=>{
+const modificar = (req, res)=>{
     const id = req.params.id
     const campo = req.body.campo
     const nuevo_valor = req.body.nuevo_valor
-    const sql = 'update movimiento set ${campo}="${nuevo_valor}" where id=${id}'
+    const sql = 'update movimiento set ${campo}="${nuevo_valor}" where id=${id} '
     conexion.query(sql, (err)=>{
         if (err) {
-            res.send('Ha ocurrido un error: '+err)
-        }else {
-            res.send('Actualizacion correcta')
+            res.send('Ha ocurrido un error '+err)
+        }else{
+            res.send('Se ha actualizado correctamente')
         }
     })
 }
 
-const eliminar = ()=>{
+const eliminar = (req, res)=>{
     const id = req.params.id
     const sql = 'delete from movimiento where id=${id}'
     conexion.query(sql, (err)=>{
         if (err) {
-            res.send('Ha ocurrido un error: '+err)
-        }else {
-            res.send('Eliminacion correcta')
+            res.send('Ha ocurrido un error '+err)
+        }else{
+            res.send('Se ha eliminado correctamente')
         }
     })
 }
 
 module.exports = {
-    todos, buscar, registrar, modificar, eliminar
+    todos, buscar, registrar, modificar, eliminar 
 }

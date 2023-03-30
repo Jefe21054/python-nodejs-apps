@@ -24,10 +24,8 @@ def iniciar():
             case '3':
                 buscar_libro()
             case '4':
-                pass
                 modificar_libro()
             case '5':
-                pass
                 eliminar_libro()
             case '6':
                 break
