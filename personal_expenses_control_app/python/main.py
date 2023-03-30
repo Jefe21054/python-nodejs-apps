@@ -61,7 +61,7 @@ def ver_movimientos():
 
 def buscar_movimiento():
     id = input('Ingrese el id del movimiento a buscar: ')
-    response = requests.get(url='http://localhost:3000/movimientos/todos/'+id)
+    response = requests.get(url='http://localhost:3000/movimientos/buscar/'+id)
     datos = []
     for dato in response.json():
         temp = []
