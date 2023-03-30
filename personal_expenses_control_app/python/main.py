@@ -72,6 +72,29 @@ def buscar_movimiento():
     tabla = tabulate(datos, headers, tablefmt='fancy_grid')
     print(tabla)
 
+def modificar_movimiento():
+    id = input('Ingrese el id del movimiento a modificar: ')
+    campo = input('Ingrese el campo a modificar:\n1. Tipo\n2. Cantidad\n3. Fecha')
+    nuevo_valor = ''
+    if(campo == '1'):
+        campo = 'tipo'
+        nuevo_valor = input('Ingrese el tipo de movimiento: ')
+    elif(campo == '2'):
+        campo = 'cantidad'
+        nuevo_valor = input('Ingrese la cantidad: ')
+    elif(campo == '3'):
+        campo = 'fecha'
+        nuevo_valor = input('Ingrese la fecha: ')
+    else:
+        print('No existe el campo seleccionado')
+    data = {'campo': campo, 'nuevo_valor': nuevo_valor}
+    respuesta = requests.post(url='http://localhost:3000/movimientos/modificar/'+id, data=data)
+    print(respuesta.text)
+
+def eliminar_movimiento():
+    id = input('Ingrese el id del movimiento a elimina: ')
+    respuesta = requests.post(url='http://localhost:3000/movimientos/eliminar/'+id)
+    print(respuesta.text)
 
 try:
     iniciar()
