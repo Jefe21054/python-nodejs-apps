@@ -85,11 +85,6 @@ def eliminar_cita():
     respuesta = requests.post(url='http://localhost:3000/citas-medicas/eliminar/'+id)
     print(respuesta.text)
 
-
-
-
-
-
 try:
     iniciar()
 except KeyboardInterrupt:
