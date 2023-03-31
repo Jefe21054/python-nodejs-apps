@@ -19,13 +19,13 @@ def iniciar():
             case '1':
                 nueva_cita()
             case '2':
-                pass
+                mostrar_citas()
             case '3':
-                pass
+                buscar_citas()
             case '4':
-                pass
+                modificar_estado()
             case '5':
-                pass
+                eliminar_cita()
             case '6':
                 break
             case _:
@@ -84,6 +84,10 @@ def eliminar_cita():
     id = input('Ingrese el id de la cita médica: ')
     respuesta = requests.post(url='http://localhost:3000/citas-medicas/eliminar/'+id)
     print(respuesta.text)
+
+
+
+
 
 
 try:

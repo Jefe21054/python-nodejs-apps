@@ -13,7 +13,7 @@ const todas = (req, res)=>{
 
 const buscar = (req, res)=>{
     const dia = req.body.dia
-    const sql = `select * from cita where dia=${dia} and estado='Agendada'`
+    const sql = `select * from cita where dia='${dia}' and estado='Agendada'`
     conexion.all(sql, (err, result)=>{
         if (err) {
             res.send('Ha ocurrido un error: '+err)
